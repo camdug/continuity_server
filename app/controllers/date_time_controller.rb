@@ -1,5 +1,6 @@
 class DateTimeController < ApplicationController
-  def get(time_zone=nil) # time_zone must be a valid zone name or offset
+  def get # time_zone must be a valid zone name or offset
+    time_zone = params[:time_zone]
     if (time_zone.nil?)
       @time = DateTime.now
       return
