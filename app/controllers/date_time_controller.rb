@@ -1,11 +1,16 @@
 class DateTimeController < ApplicationController
-  def get # time_zone must be a valid zone name or offset
+
+  respond_to :html, :json
+
+  def get
     time_zone = params[:time_zone]
+    
     if (time_zone.nil?)
       @time = DateTime.now
-      return
+    else
+      @time = DateTime.now.change(:offset => Time.zone_offset(time_zone))
     end
     
-    @time = DateTime.now.change(:offset => Time.zone_offset(time_zone))
+    respond_with(@time)
   end
 end
